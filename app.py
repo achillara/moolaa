@@ -20,22 +20,59 @@ def index():
 @app.route('/loggedin', methods=['POST', 'GET'])
 def loggedin():
     if request.method == 'POST':
-        balance = mongo.db.users.distinct('balance', {'username' : session['username']})
-        ttype = request.form['transtype']
-        date = request.form['date'] 
-        description = request.form['message']
-        category = request.form['cat']
-        if ttype == 'deposit':
-            amount = int(request.form['amt'])
+        if 'Tsubmit' in request.form:
+            balance = mongo.db.users.distinct('balance', {'username' : session['username']})
+            ttype = request.form['transtype']
+            date = request.form['date'] 
+            description = request.form['message']
+            category = request.form['cat']
+            if ttype == 'deposit':
+                amount = int(request.form['amt'])
+            else:
+                amount = -1 * int(request.form['amt'])
+
+            mongo.db.users.find_one_and_update({'username' : session['username']},
+                { '$push' : {'transactions' : [ttype, date, description, category, amount]}})
+            mongo.db.users.find_one_and_update({'username' : session['username']},
+                { '$inc' : {'balance' : amount }})
+
+            if ttype == 'withdrawal':
+                budget = mongo.db.users.distinct('budget', {'username' : session['username']})
+                check = False
+                for b in budget:
+                    if b[0] == date[:7]:
+                        b[2] = b[2] + int(request.form['amt'])
+                        check = True
+                if check == False:
+                    mongo.db.users.find_one_and_update({'username' : session['username']},
+                        {'$push' : {'budget' : [request.form['bmonth'], int(request.form['budget']), 0] }})
+                else:
+                    mongo.db.users.find_one_and_update({'username' : session['username']},
+                        { '$set' : {'budget' : budget }})
+
         else:
-            amount = -1 * int(request.form['amt'])
-        mongo.db.users.find_one_and_update({'username' : session['username']},
-            { '$push' : {'transactions' : [ttype, date, description, category, amount]}})
-        mongo.db.users.find_one_and_update({'username' : session['username']},
-            { '$inc' : {'balance' : amount }})
+            budget = mongo.db.users.distinct('budget', {'username' : session['username']})
+            check = False
+            for b in budget:
+                if b[0] == request.form['bmonth']:
+                    b[1] = b[1] + int(request.form['budget'])
+                    check = True
+            if check == False:
+                mongo.db.users.find_one_and_update({'username' : session['username']},
+                    {'$push' : {'budget' : [request.form['bmonth'], int(request.form['budget']), 0] }})
+            else:
+                mongo.db.users.find_one_and_update({'username' : session['username']},
+                    { '$set' : {'budget' : budget }})
+
     transactions = mongo.db.users.distinct('transactions', {'username' : session['username']})
-    with open("static/json/transactions.JSON", 'w') as outfile:
+    with open("static/transactions.JSON", 'w') as outfile:
         json.dump(transactions, outfile)
+
+    budget = mongo.db.users.distinct('budget', {'username' : session['username']})
+
+    with open("static/budget.JSON", 'w') as outfile:
+        json.dump(budget, outfile)
+
     return render_template('loggedin.html', balance = mongo.db.users.distinct('balance', {'username' : session['username']})) 
 
 @app.route('/logout')
