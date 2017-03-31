@@ -1,0 +1,172 @@
+{% extends "layout.html"%}
+{% block body%}
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-4 col-md-offset-4">
+            <div>
+                You are logged in as {{ session['username']}}
+                <br>
+                Your total balance is {{ balance[0] }}
+            </div>
+            <div id="deposits" class="chart" style="height: 400px; min-width: 310px"></div>
+            <div class="spacer"></div>
+            <div id="withdrawals" class="chart" style="height: 400px; min-width: 310px"></div>
+            <br>
+            <script>
+                // Create deposits chart
+
+                $.ajaxSetup({
+                  cache:false
+                });
+
+                $.getJSON('static/deposits.JSON',function (data) {
+                    $('#deposits').highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Account Deposit'
+                        },
+                        
+                        xAxis: {
+                            ordinal: true,
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                day: '%m/%d/%Y'
+                            }
+                        },
+
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Deposit Amount ($)',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            }
+                        },
+                        
+                        plotOptions: {
+                            bar: {
+                                dataLabels: {
+                                    enabled: true
+                                }
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: -40,
+                            y: 100,
+                            floating: true,
+                            borderWidth: 1,
+                            backgroundColor: '#FFFFFF',
+                            shadow: true
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'Deposit Amount',
+                            data: data
+                        }]
+                    });
+                });
+                    
+            </script>
+            <script>
+                // Create withdrawals chart
+
+                $.ajaxSetup({
+                  cache:false
+                });
+
+                $.getJSON('static/withdrawals.JSON',function (data) {
+                    $('#withdrawals').highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Account Withdrawals'
+                        },
+                        
+                        xAxis: {
+                            ordinal: true,
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                day: '%m/%d/%Y'
+                            }
+                        },
+
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Withdrawal Amount ($)',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            }
+                        },
+                        
+                        plotOptions: {
+                            bar: {
+                                dataLabels: {
+                                    enabled: true
+                                }
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: -40,
+                            y: 100,
+                            floating: true,
+                            borderWidth: 1,
+                            backgroundColor: '#FFFFFF',
+                            shadow: true
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'Withdrawal Amount',
+                            data: data
+                        }]
+                    });
+                });
+
+            </script>
+
+            <form method = POST action = "{{ url_for('loggedin') }}">
+                <div class = "form-group">
+                    <label for = "inputDDate">Date</label>
+                    <input type = "date" class = "form-control" name = "ddate">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputWAmt">Amount Deposited</label>
+                    <input type = "number" class = "form-control" name = "damt">
+                </div>
+                <button type = "submit" name = "deposit" class = "btn btn-primary btn-block">Deposit Amount</button>
+                <div class = "form-group">
+                    <label for = "inputWDate">Date</label>
+                    <input type = "date" class = "form-control" name = "wdate">
+                </div>
+                <div class = "form-group">
+                    <label for = "inputWAmt">Amount Withdrawn</label>
+                    <input type = "number" class = "form-control" name = "wamt">
+                </div>
+                <button type = "submit" name = "withdrawal" class = "btn btn-primary btn-block">Withdraw Amount</button>
+                
+            </form>
+            <br>
+            <div>
+                <a href = "{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
