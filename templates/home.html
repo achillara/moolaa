@@ -18,6 +18,7 @@
     <script src="../static/js/jquery.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 
     <!--script src="https://code.highcharts.com/stock/highstock.js"></script>
@@ -46,10 +47,9 @@
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a href="{{ url_for('home') }}">Portfolio</a></li>
             <li role="presentation"><a href="{{ url_for('loggedin') }}">Personal</a></li>
-            <li role="presentation"><a href="{{ url_for('global_') }}">Global</a></li>  
         </ul>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" style="text-align: center">
         <!--Search bar-->
         <div class="row bottom5">
             <div class="col-md-4 col-sm-4 col-xs-0"></div>
@@ -65,6 +65,7 @@
         </div>
         <br>
         <!-- Graph Display-->
+        <div class="col-md-12"><h2>Tesla</h2></div>
         <div class="row bottom5">
             <div class="col-md-2 col-sm-2 col-xs-0"></div>
             <div class="col-md-8 col-sm-8 col-xs-12">
@@ -74,9 +75,6 @@
                         Highcharts.stockChart('container', {
                             rangeSelector: {
                                 selected: 1
-                            },
-                            title: {
-                                text: ' Tesla Stock Price'
                             },
                             series: [{
                                 name: 'TSLA',
@@ -91,21 +89,32 @@
             </div> 
             <div class="col-md-2 col-sm-2 col-xs-0"></div>  
         </div>
+        <div class="row" style="text-align: center">
+            <div class="col-md-2 col-xs-2"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src="../static/images/teslatone.png"/>
+            </div>    
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src="../static/images/teslascore.png">
+            </div>    
+            </div class="col-md-2 col-xs-2"></div>
+        </div>        
+
+        <div class="row bottom5" style="text-align: center">
+            <div class="col-md-12"><h2>Southwest Airlines</h2></div>
+        </div>    
         <div class="row bottom5">
             <div class="col-md-2 col-sm-2 col-xs-0"></div>
             <div class="col-md-8 col-sm-8 col-xs-12">
                 <div id="container1" style="width:100%; height:400px;"></div>
                 <script>
-                    $.getJSON('../static/json/toyota.JSON', function (data) {
+                    $.getJSON('../static/json/southwest.JSON', function (data) {
                         Highcharts.stockChart('container1', {
                             rangeSelector: {
                                 selected: 1
                             },
-                            title: {
-                                text: ' Toyota Stock Price'
-                            },
                             series: [{
-                                name: 'ADR',
+                                name: 'LUV',
                                 data: data,
                                 tooltip: {
                             valueDecimals: 2
@@ -117,6 +126,21 @@
             </div>  
             <div class="col-md-2 col-sm-2 col-xs-0"></div> 
         </div>
+        <div class="row" style="text-align: center">
+            <div class="col-md-2 col-xs-2"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src="../static/images/southwesttone.png"/>
+            </div>    
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src="../static/images/southwestscore.png">
+            </div>    
+            </div class="col-md-2 col-xs-2"></div>
+        </div>        
+                   
+        <br>
+        <div class="row bottom5" style="text-align: center">
+            <div class="col-md-12"><h2>Columbia Sportswear</h2></div>
+        </div>   
         <div class="row bottom5">
             <div class="col-md-2 col-sm-2 col-xs-0"></div>
             <div class="col-md-8 col-sm-8 col-xs-12">
@@ -126,9 +150,6 @@
                         Highcharts.stockChart('container2', {
                             rangeSelector: {
                                 selected: 1
-                            },
-                            title: {
-                                text: ' Columbia Sportswear Stock Price'
                             },
                             series: [{
                                 name: 'COLM',
@@ -143,21 +164,32 @@
             </div> 
             <div class="col-md-2 col-sm-2 col-xs-0"></div>  
         </div>
+        <div class="row" style="text-align: center">
+            <div class="col-md-2 col-xs-2"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src="../static/images/columbiatone.png"/>
+            </div>    
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src="../static/images/columbiascore.png">
+            </div>    
+            </div class="col-md-2 col-xs-2"></div>
+        </div>                 
+        <br>
+        <div class="row bottom5" style="text-align: center">
+            <div class="col-md-12"><h2>Toyota</h2></div>
+        </div>
         <div class="row bottom5">
             <div class="col-md-2 col-sm-2 col-xs-0"></div>
             <div class="col-md-8 col-sm-8 col-xs-12">
                 <div id="container3" style="width:100%; height:400px;"></div>
                 <script>
-                    $.getJSON('../static/json/southwest.JSON', function (data) {
+                    $.getJSON('../static/json/toyota.JSON', function (data) {
                         Highcharts.stockChart('container3', {
                             rangeSelector: {
                                 selected: 1
                             },
-                            title: {
-                                text: ' Southwest Stock Price'
-                            },
                             series: [{
-                                name: 'LUV',
+                                name: 'ADR',
                                 data: data,
                                 tooltip: {
                             valueDecimals: 2
@@ -169,32 +201,17 @@
             </div>  
             <div class="col-md-2 col-sm-2 col-xs-0"></div>                       
         </div>
-        <div class="row bottom5">
-            <div class="col-md-2 col-sm-2 l-xs-0"></div>
-            <div class="col-md-8 col-sm-8 col-xs-12">
-                <div id="container4" style="width:100%; height:400px;"></div>
-                <script>
-                    $.getJSON('../static/json/walmart.JSON', function (data) {
-                        Highcharts.stockChart('container4', {
-                            rangeSelector: {
-                                selected: 1
-                            },
-                            title: {
-                                text: ' Walmart Stock Price'
-                            },
-                            series: [{
-                                name: 'WMT',
-                                data: data,
-                                tooltip: {
-                            valueDecimals: 2
-                            }
-                        }]
-                        });
-                    });                                   
-                </script>   
-            </div> 
-            <div class="col-md-2 col-sm-2 col-xs-0"></div>  
-        </div>
+        <div class="row" style="text-align: center">
+            <div class="col-md-2 col-xs-2"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src="../static/images/toyotatone.png"/>
+            </div>    
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <img src="../static/images/toyotascore.png">
+            </div>    
+            </div class="col-md-2 col-xs-2"></div>
+        </div>        
+       
     </div>
 </body>
 
