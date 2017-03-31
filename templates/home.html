@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MOOLA | Your Money, Your World</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+
+    <!--script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script-->    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .bottom5 {margin-bottom: 5px}
+    </style>
+    
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand">
+            <i class="fa fa-cog"></i> MOOLA
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active>"<a href="{{ url_for('home') }}">Portfolio</a></li>
+            <li role="presentation"><a href="{{ url_for('personal') }}">Personal</a></li>
+            <li role="presentation"><a href="{{ url_for('global_') }}">Global</a></li>  
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <!--Search bar-->
+        <div class="row bottom5">
+            <div class="col-md-4 col-sm-4 col-xs-0"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-0"></div>  
+        </div>
+        <br>
+        <!-- Graph Display-->
+        <div class="row bottom5">
+            <div class="col-md-2 col-sm-2 col-xs-0"></div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div id="container" style="width:100%; height:400px;"></div>
+                <script>
+                    $.getJSON('../static/tesla.JSON', function (data) {
+                        Highcharts.stockChart('container', {
+                            rangeSelector: {
+                                selected: 1
+                            },
+                            title: {
+                                text: ' Tesla Stock Price'
+                            },
+                            series: [{
+                                name: 'TSLA',
+                                data: data,
+                                tooltip: {
+                            valueDecimals: 2
+                            }
+                        }]
+                        });
+                    });                                   
+                </script>   
+            </div> 
+            <div class="col-md-2 col-sm-2 col-xs-0"></div>  
+        </div>
+        <div class="row bottom5">
+            <div class="col-md-2 col-sm-2 col-xs-0"></div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div id="container1" style="width:100%; height:400px;"></div>
+                <script>
+                    $.getJSON('../static/toyota.JSON', function (data) {
+                        Highcharts.stockChart('container1', {
+                            rangeSelector: {
+                                selected: 1
+                            },
+                            title: {
+                                text: ' Toyota Stock Price'
+                            },
+                            series: [{
+                                name: 'ADR',
+                                data: data,
+                                tooltip: {
+                            valueDecimals: 2
+                            }
+                        }]
+                        });
+                    });                                   
+                </script>   
+            </div>  
+            <div class="col-md-2 col-sm-2 col-xs-0"></div> 
+        </div>
+        <div class="row bottom5">
+            <div class="col-md-2 col-sm-2 col-xs-0"></div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div id="container2" style="width:100%; height:400px;"></div>
+                <script>
+                    $.getJSON('../static/csw.JSON', function (data) {
+                        Highcharts.stockChart('container2', {
+                            rangeSelector: {
+                                selected: 1
+                            },
+                            title: {
+                                text: ' Columbia Sportswear Stock Price'
+                            },
+                            series: [{
+                                name: 'COLM',
+                                data: data,
+                                tooltip: {
+                            valueDecimals: 2
+                            }
+                        }]
+                        });
+                    });                                   
+                </script>   
+            </div> 
+            <div class="col-md-2 col-sm-2 col-xs-0"></div>  
+        </div>
+        <div class="row bottom5">
+            <div class="col-md-2 col-sm-2 col-xs-0"></div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div id="container3" style="width:100%; height:400px;"></div>
+                <script>
+                    $.getJSON('../static/southwest.JSON', function (data) {
+                        Highcharts.stockChart('container3', {
+                            rangeSelector: {
+                                selected: 1
+                            },
+                            title: {
+                                text: ' Southwest Stock Price'
+                            },
+                            series: [{
+                                name: 'LUV',
+                                data: data,
+                                tooltip: {
+                            valueDecimals: 2
+                            }
+                        }]
+                        });
+                    });                                   
+                </script>   
+            </div>  
+            <div class="col-md-2 col-sm-2 col-xs-0"></div>                       
+        </div>
+        <div class="row bottom5">
+            <div class="col-md-2 col-sm-2 l-xs-0"></div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div id="container4" style="width:100%; height:400px;"></div>
+                <script>
+                    $.getJSON('../static/walmart.JSON', function (data) {
+                        Highcharts.stockChart('container4', {
+                            rangeSelector: {
+                                selected: 1
+                            },
+                            title: {
+                                text: ' Walmart Stock Price'
+                            },
+                            series: [{
+                                name: 'WMT',
+                                data: data,
+                                tooltip: {
+                            valueDecimals: 2
+                            }
+                        }]
+                        });
+                    });                                   
+                </script>   
+            </div> 
+            <div class="col-md-2 col-sm-2 col-xs-0"></div>  
+        </div>
+    </div>
+</body>
+
+</html>
+s
