@@ -135,7 +135,7 @@
             <br>
         
            <div class="row">
-<form method="POST" target="_blank" onsubmit="try {return window.confirm(&quot;You are submitting information to an external page.\nAre you sure?&quot;);} catch (e) {return false;}">
+            <form method="POST" target="_blank" onsubmit="try {return window.confirm(&quot;You are submitting information to an external page.\nAre you sure?&quot;);} catch (e) {return false;}">
                 <div>
                     <select name="transtype">
                         <option value="deposit">Deposit</option>
@@ -171,14 +171,13 @@
                     <input type = "month" name = "bmonth">
                 </div>
                 <button type = "submit" name = "Bsubmit">Submit transaction</button>
-            </form>           
-           </div> 
-            
+            </form>
             <br>
             <div>
                 <a href = "{{ url_for('logout') }}">Logout</a>
             </div>
         </div>
+                   </div> 
     </div>
 </div>
 </body>
