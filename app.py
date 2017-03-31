@@ -31,7 +31,7 @@ def loggedin():
                     d[1] = d[1] + int(request.form['damt'])
                     check = True
             if check==False:
-                mongo.db.users.find_one_and_update({'username' : session['username']},
+                mong o.db.users.find_one_and_update({'username' : session['username']},
                     { '$push' : {'deposits' : [request.form['ddate'], int(request.form['damt'])] }})
             else:
                 mongo.db.users.find_one_and_update({'username' : session['username']},
