@@ -17,7 +17,6 @@
 
     <script src="../static/js/jquery.js"></script>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="../static/js/jput.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -148,40 +147,7 @@
                 </script>
             </div>
         
-            <script>
-                $(document).ready(function(){
-                //while running this code the template will be appended in your div with json data
-                    $("#tbody").jPut({
-                        jsonData:projects,
-                        ajax_url:"static/json/transactions.json",
-                        name:"tbody_template",
-                    });
-                });
-            </script>   
-
-            <table jput="t_template">
-                <th>
-                    <td>Type:</td>
-                    <td>Date:</td>
-                    <td>Description:</td>
-                    <td>Category:</td>
-                    <td>Amount:</td>
-                </th>
-                 <tbody jput="tbody_template">
-                     <tr>
-                         <td>{{ttype}}</td>
-                         <td>{{date}}</td>
-                         <td>{{description}}</td>
-                         <td>{{category}}</td>
-                         <td>{{amount}}</td>                                                               
-                     </tr>
-                 </tbody>
-            </table>
-
-            <table>
-             <tbody id="tbody">
-             </tbody>
-            </table>
+            
             <form method="POST" target="_blank" onsubmit="try {return window.confirm(&quot;You are submitting information to an external page.\nAre you sure?&quot;);} catch (e) {return false;}">
                 <div>
                     <select name="transtype">
