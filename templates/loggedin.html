@@ -74,6 +74,80 @@
                 <br>
                 Your total balance is {{ balance[0] }}
             </div>
+
+            <div id="budget" class="chart" style="height: 400px; min-width: 310px"></div>
+                <br>
+                <script>
+                     $.ajaxSetup({
+                      cache:false
+                    });
+
+                    $.getJSON('static/budget.JSON',function (data){
+
+                        var dates = new Array();
+                        var budget = new Array();
+                        var spending = new Array();
+
+                         for(var count = 0; count < data.length; count++){
+                            dates.push(data[count][0]);
+                            budget.push(data[count][1]);
+                            spending.push(data[count][2]);
+                        }
+
+                        $('#budget').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Budget vs. Spending'
+                            },
+                            xAxis: {
+                                ordinal: true,
+                                // type: 'datetime',
+                                // dateTimeLabelFormats: {
+                                //     month: '%m',
+                                //     year: '%Y'
+                                // },
+                                categories: dates
+                            },
+                            yAxis: [{
+                                min: 0,
+                                title: {
+                                    text: '$'
+                                }
+                            }],
+                            legend: {
+                                shadow: false
+                            },
+                            tooltip: {
+                                shared: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    grouping: false,
+                                    shadow: false,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: 'Spending',
+                                color: 'rgba(165,170,217,1)',
+                                data: spending,
+                                pointPadding: 0.3,
+
+                            }, {
+                                name: 'Budget',
+                                color: 'rgba(126,86,134,.9)',
+                                data: budget,
+                                pointPadding: 0.4,
+
+                            }]
+                        });
+                    });
+
+                </script>
+            </div>
+        
             <script>
                 $(document).ready(function(){
                 //while running this code the template will be appended in your div with json data
@@ -135,7 +209,15 @@
                     <label>Transaction Amount</label>
                     <input type="number" name="amt">
                 </div>
-                <button type="submit" name="submit">Submit Transaction</button>    
+                <button type="submit" name="Tsubmit">Submit Transaction</button> 
+
+                <div>
+                    <label for = "inputAmt">Budget Amount</label>
+                    <input type = "number" name = "budget">
+                    <label for = "budgetDate">Budget Month</label>
+                    <input type = "month" name = "bmonth">
+                </div>
+                <button type = "submit" name = "Bsubmit">Submit transaction</button>
             </form>
             <br>
             <div>
@@ -147,4 +229,4 @@
 </body>
 
 </html>
-s
+
