@@ -54,13 +54,13 @@ def loggedin():
                     { '$set' : {'withdrawals' : wdraw }})
     wdraw = mongo.db.users.distinct('withdrawals', {'username' : session['username']})
     for w in wdraw:
-        w[0] = (((datetime.datetime.strptime(w[0], '%Y-%m-%d'))-datetime.datetime(1970,1,1)).total_seconds()) * 1000
-    with open("static/withdrawals.JSON", 'w') as outfile:
+        w[0] = (((datetime.strptime(w[0], '%Y-%m-%d'))-datetime(1970,1,1)).total_seconds()) * 1000
+    with open("static/json/withdrawals.JSON", 'w') as outfile:
         json.dump(wdraw, outfile)
     depos = mongo.db.users.distinct('deposits', {'username' : session['username']})
     for d in depos:
-        d[0] = (((datetime.datetime.strptime(d[0], '%Y-%m-%d'))-datetime.datetime(1970,1,1)).total_seconds()) * 1000
-    with open("static/deposits.JSON", 'w') as outfile:
+        d[0] = (((datetime.strptime(d[0], '%Y-%m-%d'))-datetime(1970,1,1)).total_seconds()) * 1000
+    with open("static/json/deposits.JSON", 'w') as outfile:
         json.dump(depos, outfile)
     return render_template('loggedin.html', balance = mongo.db.users.distinct('balance', {'username' : session['username']})) 
 
@@ -73,10 +73,13 @@ def logout():
 def login():
     users = mongo.db.users
     login_user = users.find_one({'username' : request.form['username']})
+
     if login_user:
+        #hashed = request.form['pass'].encode('utf-8')
+        #if bcrypt.hashpw(hashed, login_user['password']) == login_user['password']:
         if request.form['pass'] == login_user['password']: 
             session['username'] = request.form['username']
-            return redirect(url_for('login.html'))
+            return redirect(url_for('index'))
     return 'Invalid username/password combination'
 
 #################################################################
@@ -105,6 +108,7 @@ def global_():
 		year=datetime.now().year,
 	)
 
-
+ 
 if __name__ == '__main__':
+	app.secret_key = 'secret'
 	app.run()
