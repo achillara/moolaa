@@ -5,6 +5,7 @@ import bcrypt
 import json
 
 app = Flask(__name__)
+app.secret_key = 'secret'
 
 connection = pymongo.MongoClient('ds131320.mlab.com', 31320)
 mongo = connection['moola']
@@ -109,6 +110,5 @@ def global_():
 	)
 
  
-if __name__ == '__main__':
-	app.secret_key = 'secret'
-	app.run()
+
+app.run()
