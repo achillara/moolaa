@@ -1,6 +1,6 @@
 # moolaa
 
-made with flask, python, mongo, and heroku
+made with flask, python, mongo, IBM Watson API, and heroku
 
 visit us at [this link](http://moolaa.herokuapp.com/)
 
